@@ -1,0 +1,43 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+Class Book {
+  -isbn: String
+  -title: String
+  -author: String
+  -available: boolean
+  -quantity: int
+  +availableCopies(): int
+  +checkAvailability(): boolean
+}
+
+Class Person {
+  -id: Long
+  -name: String
+  -email: String
+  -phone: String
+}
+
+Class Loan {
+  -id: Long
+  -loanDate: LocalDate
+  -dueDate: LocalDate
+  -author: LocalDate
+  +isOverdue(): boolean
+}
+
+Class LibraryService {
+  +addBook(book: Book): void
+  +removeBook(isbn: String): void
+  +lendBook(isbn: String, personId: Long): Loan
+  +returnBook(isbn: String, personId: Long): void
+  +searchCatalog(query: String): List<Book>
+}
+
+Book "1" -- "0..*" Loan : is loaned via >
+Person "1" -- "0..*" Loan : borrows >
+LibraryService ..> Book : manages
+LibraryService ..> Loan : manages
+LibraryService ..> Person : references
+@enduml

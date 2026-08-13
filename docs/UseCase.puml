@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Librarian (You)" as Librarian
+actor "Borrower" as Borrower
+
+rectangle HomeLibrary {
+  usecase "Add Book" as UC1
+  usecase "Remove Book" as UC2
+  usecase "Search Catalog" as UC3
+  usecase "Lend Book" as UC4
+  usecase "Return Book" as UC5
+  usecase "View Loan History" as UC6
+  usecase "Check Availability" as UC7
+}
+
+Librarian --> UC1
+Librarian --> UC2
+Librarian --> UC4
+Librarian --> UC5
+Librarian --> UC6
+Librarian --> UC3
+
+Borrower --> UC7
+Borrower --> UC3
+
+UC4 ..> UC7 : <<include>>
+UC5 ..> UC6 : <<extend>>
+@enduml
